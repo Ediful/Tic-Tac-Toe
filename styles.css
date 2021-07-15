@@ -1,0 +1,59 @@
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
+html, body {
+  font-family: 'Montserrat', sans-serif;
+  background-color: #B9E3C6;
+  color: #14213d;
+  height: 100%;
+  font-size: 16px;
+}
+
+#header {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px;
+}
+
+#contents {
+  width: 500px;
+  background-color: darkcyan;
+  margin: 4.5em auto;
+  padding: 2em;
+  border-radius: 1em;
+  box-shadow: 4px 6px #888;
+}
+
+#gameboard-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.player-card {
+  background-color: cadetblue;
+  width: 8em;
+  height: 4em;
+}
+
+#score {
+  background-color: darkgreen;
+}
+
+#gameboard {
+  display: grid;
+  background-color: coral;
+  height: 500px;
+  width: 500px;
+  grid-template-columns: repeat(3, auto);
+  grid-template-rows: repeat(3, auto);
+  grid-gap: 0.75em;
+}
+
+.grid-item {
+  background-color: cornsilk;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
