@@ -5,7 +5,7 @@
 
 html, body {
   font-family: 'Montserrat', sans-serif;
-  background-color: #B9E3C6;
+  background-color: darkcyan;
   color: #14213d;
   height: 100%;
   font-size: 16px;
@@ -19,11 +19,11 @@ html, body {
 
 #contents {
   width: 500px;
-  background-color: darkcyan;
+  background-color: cornsilk;
   margin: 4.5em auto;
   padding: 2em;
   border-radius: 1em;
-  box-shadow: 4px 6px #888;
+  box-shadow: 4px 6px grey;
 }
 
 #gameboard-header {
@@ -32,13 +32,9 @@ html, body {
 }
 
 .player-card {
-  background-color: cadetblue;
+  background-color: cornsilk;
   width: 8em;
   height: 4em;
-}
-
-#score {
-  background-color: darkgreen;
 }
 
 #gameboard {
@@ -52,8 +48,18 @@ html, body {
 }
 
 .grid-item {
+  border: none;
   background-color: cornsilk;
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: 7em;
+}
+
+.grid-item:hover {
+  background-color: blanchedalmond;
+}
+
+.grid-item:active {
+  background-color: red;
 }
