@@ -1,37 +1,100 @@
 //  Module for gameboard
-//  Handles the setting/getting of the board state
 const gameBoard = (() => {
-  //let array = ["X", "O", "X", "O", "X", "O", "X", "O", "X"];
   let array = ["", "", "", "", "", "", "", "", ""];
-  // const setGameBoard = () => /*something*/; make sure to return it too
+  
   const getGameBoard = () => array;
-  return {getGameBoard};
+
+  // added const, might break things
+  const setGameBoard = (index, xo) => {
+    array[index] = xo;
+  };
+
+  return {getGameBoard, setGameBoard};
 })();
+
 
 //  Module for game controller
 const gameController = (() => {
+  // Game states
+  let startmenu = true;
+  let player1 = false;
+  let player2 = false;
+  let gameOver = false;
 
+  // Grid cell buttons
+  const array = Array.from(document.querySelectorAll(".grid-item"));
+  
+  // instructions for each state
+  const startMenuState = () => {
+    document.getElementById("start-button").addEventListener("click", startGame)
+  };
+
+  const player1State = () => {
+    console.log("hello");
+    array.forEach(element => element.addEventListener("click", player1Turn));
+  };
+  
+  // functions used by each state
+  // remember to remove added listeners to avoid trash build up
+  const startGame = () => {
+    displayController.hideStartMenu();
+    displayController.showGameboard();
+    startmenu = false;
+    player1 = true;
+  };
+  
+  const player1Turn = () => {
+    console.log("hello");
+    gameBoard.setGameBoard(this, "X"); // set gameboard element to "X"
+    //displayController.displayTurn(this); // display player 1 selection
+    // player1 = false;
+    // player2 = true;
+  }
+
+  // Flow of game states
+  if (startmenu) startMenuState();
+  if (player1) player1State();
 })();
+
 
 //  Module for display controller
-//  Handles display of X/O and Turn Status
-//  Also Start Menu (name input, start/restart button, congragulations, Player 2/CPU)
 const displayController = (() => {
   let array = gameBoard.getGameBoard();
-  // may turn into a function, need id and index
-  document.getElementById("0").value = array[0];
-  document.getElementById("1").value = array[1];
-  document.getElementById("2").value = array[2];
-  document.getElementById("3").value = array[3];
-  document.getElementById("4").value = array[4];
-  document.getElementById("5").value = array[5];
-  document.getElementById("6").value = array[6];
-  document.getElementById("7").value = array[7];
-  document.getElementById("8").value = array[8];
+
+  const displayTurn = (id, index) => {
+    document.getElementById(id).value = array[index];
+  };
+
+  const hideStartMenu = () => {
+    document.getElementById("startmenu-container").style.display = "none";
+  };
+
+  const showGameboard = () => {
+    document.getElementById("gameboard-container").style.display = "block";
+  };
+
+  return {displayTurn, hideStartMenu, showGameboard};
 })();
+
 
 //  Factory for players
 const Player = (name) => {
   const getName = () => name;
   return {getName};
 };
+
+/*
+// maybe move this stuff to gameController/displayController
+function resetGame() {
+  document.getElementById("startmenu-container").style.display = "flex";
+  document.getElementById("gameboard-container").style.display = "none";
+}
+
+function startGame() {
+  document.getElementById("startmenu-container").style.display = "none";
+  document.getElementById("gameboard-container").style.display = "block";
+}
+
+document.getElementById("start-button").addEventListener("click", startGame);
+document.getElementById("reset-button").addEventListener("click", resetGame);
+*/

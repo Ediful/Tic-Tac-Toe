@@ -7,17 +7,34 @@
 	<link rel='stylesheet' href='styles.css'>
 </head>
 <body>
-	<header id='header'>
-		<h1>Tic Tac Toe</h1>
-	</header>
-	
-	<div id="contents">
+	<div id="startmenu-container">
+		<div>
+			<p>Player 1</p>
+			<input type="text" placeholder="Enter Name">
+		</div>
+
+		<input type="button" id="start-button" value="Start">
+
+		<div>
+			<div>
+				<input type="radio" id="player2" name="player-cpu" checked>
+				<label for="player2">Player 2</label>
+			</div>
+			<input type="text" placeholder="Enter Name">
+			<div id="CPU-radio">
+				<input type="radio" id="CPU" name="player-cpu">
+				<label for="CPU">CPU</label>
+			</div>
+		</div>
+	</div>
+
+	<div id="gameboard-container">
 		<div id="gameboard-header">
 			<div class="player-card">
 				<p>Player 1</p>
 			</div>
 			<div>
-				<input type="button" value="Start">
+				<input type="button" id="reset-button" value="Reset">
 			</div>
 			<div class="player-card">
 				<p>Player 2</p>
