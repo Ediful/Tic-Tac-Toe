@@ -15,45 +15,29 @@ const gameBoard = (() => {
 
 //  Module for game controller
 const gameController = (() => {
-  // Game states
-  let startmenu = true;
-  let player1 = false;
-  let player2 = false;
-  let gameOver = false;
-
   // Grid cell buttons
-  const array = Array.from(document.querySelectorAll(".grid-item"));
+  const array = Array.from(document.getElementsByClassName("grid-item"));
   
   // instructions for each state
-  const startMenuState = () => {
-    document.getElementById("start-button").addEventListener("click", startGame)
-  };
-
-  const player1State = () => {
-    console.log("hello");
-    array.forEach(element => element.addEventListener("click", player1Turn));
-  };
+  const startMenuState = () => document.getElementById("start-button").addEventListener("click", startGame);
+  const player1State = () => array.forEach(element => element.addEventListener("click", player1Turn));
   
   // functions used by each state
   // remember to remove added listeners to avoid trash build up
   const startGame = () => {
     displayController.hideStartMenu();
     displayController.showGameboard();
-    startmenu = false;
-    player1 = true;
+    player1State();
   };
   
-  const player1Turn = () => {
-    console.log("hello");
-    gameBoard.setGameBoard(this, "X"); // set gameboard element to "X"
-    //displayController.displayTurn(this); // display player 1 selection
-    // player1 = false;
-    // player2 = true;
-  }
+  function player1Turn () {
+    gameBoard.setGameBoard(this.value, "X");
+    displayController.displayTurn(this.id, this.value);
+    // check for reset and game over
+    // go to player 2 turn
+  };
 
-  // Flow of game states
-  if (startmenu) startMenuState();
-  if (player1) player1State();
+  startMenuState(); // maybe take startmenu out of function since it's just one line
 })();
 
 
@@ -62,7 +46,7 @@ const displayController = (() => {
   let array = gameBoard.getGameBoard();
 
   const displayTurn = (id, index) => {
-    document.getElementById(id).value = array[index];
+    document.getElementById(id).innerText = array[index];
   };
 
   const hideStartMenu = () => {

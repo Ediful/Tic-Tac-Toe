@@ -37,7 +37,6 @@ body {
 
 #gameboard-container {
   display: none;
-  width: 500px;
   background-color: cornsilk;
   padding: 2em;
   border-radius: 1em;
@@ -69,7 +68,9 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 7em;
+  font-size: 64px;
+  width: 2em;
+  height: 2em;
 }
 
 .grid-item:hover {
