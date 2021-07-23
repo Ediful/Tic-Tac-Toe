@@ -21,7 +21,8 @@ const gameController = (() => {
   // instructions for each state
   const startMenuState = () => document.getElementById("start-button").addEventListener("click", startGame);
   const player1State = () => array.forEach(element => element.addEventListener("click", player1Turn));
-  
+  const player2State = () => array.forEach(element => element.addEventListener("click", player2Turn));
+
   // functions used by each state
   // remember to remove added listeners to avoid trash build up
   const startGame = () => {
@@ -35,7 +36,14 @@ const gameController = (() => {
     displayController.displayTurn(this.id, this.value);
     // check for reset and game over
     // go to player 2 turn
+    player2State();
   };
+
+  function player2Turn () {
+    gameBoard.setGameBoard(this.value, "O");
+    displayController.displayTurn(this.id, this.value);
+    player1State();
+  }
 
   startMenuState(); // maybe take startmenu out of function since it's just one line
 })();
