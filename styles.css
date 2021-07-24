@@ -80,3 +80,8 @@ body {
 .grid-item:active {
   background-color: red;
 }
+
+.grid-item:disabled {
+  pointer-events: none;
+  color: #14213d;
+}
