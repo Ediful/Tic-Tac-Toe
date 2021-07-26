@@ -12,7 +12,45 @@ const gameBoard = (() => {
     array = ["", "", "", "", "", "", "", "", ""];
   };
 
-  return {get, set, reset};
+  const gameOver = (turnSymbol) => {
+    if (array[0] === turnSymbol & array[1] === turnSymbol & array[2] === turnSymbol) {
+      console.log("GAME OVER");
+      return true;
+    }
+    if (array[3] === turnSymbol & array[4] === turnSymbol & array[5] === turnSymbol) {
+      console.log("GAME OVER");
+      return true;
+    }
+    if (array[6] === turnSymbol & array[7] === turnSymbol & array[8] === turnSymbol) {
+      console.log("GAME OVER");
+      return true;
+    }
+    if (array[0] === turnSymbol & array[3] === turnSymbol & array[6] === turnSymbol) {
+      console.log("GAME OVER");
+      return true;
+    }
+    if (array[1] === turnSymbol & array[4] === turnSymbol & array[7] === turnSymbol) {
+      console.log("GAME OVER");
+      return true;
+    }
+    if (array[2] === turnSymbol & array[5] === turnSymbol & array[8] === turnSymbol) {
+      console.log("GAME OVER");
+      return true;
+    }
+    if (array[0] === turnSymbol & array[4] === turnSymbol & array[8] === turnSymbol) {
+      console.log("GAME OVER");
+      return true;
+    }
+    if (array[2] === turnSymbol & array[4] === turnSymbol & array[6] === turnSymbol) {
+      console.log("GAME OVER");
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
+  return {get, set, reset, gameOver};
 })();
 
 
@@ -34,11 +72,18 @@ const gameController = (() => {
     turnSymbol = player1Turn ? "X" : "O";
     gameBoard.set(element.value, turnSymbol);
     displayController.displayTurn(element);
+    if(gameBoard.gameOver(turnSymbol)) console.log("hehehe");
     player1Turn = !player1Turn;
   }));
 
   // Instructions for each state
   const startMenuState = () => document.getElementById("start-button").addEventListener("click", () => {
+    let player1 = Player(document.getElementById("player1-text").value, 1);
+    displayController.displayPlayerName(player1.getName(), player1.getNum());
+
+    let player2 = Player(document.getElementById("player2-text").value, 2);
+    displayController.displayPlayerName(player2.getName(), player2.getNum());
+
     displayController.hideStartMenu();
     displayController.showGameboard();
     player1Turn = true;
@@ -71,12 +116,20 @@ const displayController = (() => {
     });
   };
 
-  return {displayTurn, hideStartMenu, showGameboard, resetGameBoard};
+  const displayPlayerName = (playerName, playerNum) => {
+    if (playerNum === 1) document.getElementById("player1-name").textContent = playerName;
+    if (playerNum === 2) document.getElementById("player2-name").textContent = playerName;
+  }
+
+  return {displayTurn, hideStartMenu, showGameboard, resetGameBoard, displayPlayerName};
 })();
 
 
 //  Factory for players
-const Player = (name) => {
+const Player = (name, playerNum) => {
+  if (!name) name = "Player " + playerNum;
+  
   const getName = () => name;
-  return {getName};
+  const getNum = () => playerNum;
+  return {getName, getNum};
 };

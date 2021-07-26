@@ -10,7 +10,7 @@
 	<div id="startmenu-container">
 		<div>
 			<p>Player 1</p>
-			<input type="text" placeholder="Enter Name">
+			<input type="text" id="player1-text" placeholder="Enter Name">
 		</div>
 
 		<input type="button" id="start-button" value="Start">
@@ -20,7 +20,7 @@
 				<input type="radio" id="player2" name="player-cpu" checked>
 				<label for="player2">Player 2</label>
 			</div>
-			<input type="text" placeholder="Enter Name">
+			<input type="text" id="player2-text" placeholder="Enter Name">
 			<div id="CPU-radio">
 				<input type="radio" id="CPU" name="player-cpu">
 				<label for="CPU">CPU</label>
@@ -31,28 +31,17 @@
 	<div id="gameboard-container">
 		<div id="gameboard-header">
 			<div class="player-card">
-				<p>Player 1</p>
+				<p id="player1-name">Player 1</p>
 			</div>
 			<div>
 				<input type="button" id="reset-button" value="Reset">
 			</div>
 			<div class="player-card">
-				<p>Player 2</p>
+				<p id="player2-name">Player 2</p>
 			</div>
 		</div>
 		
 		<div id="gameboard">
-			<!--
-			<input type="button" class="grid-item" id="0">
-			<input type="button" class="grid-item" id="1">
-			<input type="button" class="grid-item" id="2">
-			<input type="button" class="grid-item" id="3">
-			<input type="button" class="grid-item" id="4">
-			<input type="button" class="grid-item" id="5">
-			<input type="button" class="grid-item" id="6">
-			<input type="button" class="grid-item" id="7">
-			<input type="button" class="grid-item" id="8">
-			-->
 			<button class="grid-item" id="0" value=0></button>
 			<button class="grid-item" id="1" value=1></button>
 			<button class="grid-item" id="2" value=2></button>

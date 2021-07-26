@@ -54,6 +54,10 @@ body {
   height: 4em;
 }
 
+#player2-name {
+  text-align: right;
+}
+
 #gameboard {
   display: grid;
   background-color: coral;
