@@ -54,6 +54,16 @@ body {
   height: 4em;
 }
 
+#winner-reset-card {
+  text-align: center;
+}
+
+#reset-button {
+  margin-top: 0.5em;
+  padding: 0.25em;
+  border-radius: 0.5em;
+}
+
 #player2-name {
   text-align: right;
 }

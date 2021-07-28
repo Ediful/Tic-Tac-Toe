@@ -22,19 +22,21 @@
 			</div>
 			<input type="text" id="player2-text" placeholder="Enter Name">
 			<div id="CPU-radio">
-				<input type="radio" id="CPU" name="player-cpu">
-				<label for="CPU">CPU</label>
+				<input type="radio" id="cpu" name="player-cpu">
+				<label for="cpu">CPU</label>
 			</div>
 		</div>
 	</div>
+
 
 	<div id="gameboard-container">
 		<div id="gameboard-header">
 			<div class="player-card">
 				<p id="player1-name">Player 1</p>
 			</div>
-			<div>
-				<input type="button" id="reset-button" value="Reset">
+			<div id="winner-reset-card">
+				<p id="winner"></p>
+				<button id="reset-button">Restart</button>
 			</div>
 			<div class="player-card">
 				<p id="player2-name">Player 2</p>

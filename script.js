@@ -13,41 +13,20 @@ const gameBoard = (() => {
   };
 
   const gameOver = (turnSymbol) => {
-    if (array[0] === turnSymbol & array[1] === turnSymbol & array[2] === turnSymbol) {
-      console.log("GAME OVER");
-      return true;
-    }
-    if (array[3] === turnSymbol & array[4] === turnSymbol & array[5] === turnSymbol) {
-      console.log("GAME OVER");
-      return true;
-    }
-    if (array[6] === turnSymbol & array[7] === turnSymbol & array[8] === turnSymbol) {
-      console.log("GAME OVER");
-      return true;
-    }
-    if (array[0] === turnSymbol & array[3] === turnSymbol & array[6] === turnSymbol) {
-      console.log("GAME OVER");
-      return true;
-    }
-    if (array[1] === turnSymbol & array[4] === turnSymbol & array[7] === turnSymbol) {
-      console.log("GAME OVER");
-      return true;
-    }
-    if (array[2] === turnSymbol & array[5] === turnSymbol & array[8] === turnSymbol) {
-      console.log("GAME OVER");
-      return true;
-    }
-    if (array[0] === turnSymbol & array[4] === turnSymbol & array[8] === turnSymbol) {
-      console.log("GAME OVER");
-      return true;
-    }
-    if (array[2] === turnSymbol & array[4] === turnSymbol & array[6] === turnSymbol) {
-      console.log("GAME OVER");
-      return true;
-    }
-    else {
-      return false;
-    }
+    if (winCheck(0,1,2,turnSymbol)) return true;
+    if (winCheck(3,4,5,turnSymbol)) return true;
+    if (winCheck(6,7,8,turnSymbol)) return true;
+    if (winCheck(0,3,6,turnSymbol)) return true;
+    if (winCheck(1,4,7,turnSymbol)) return true;
+    if (winCheck(2,5,8,turnSymbol)) return true;
+    if (winCheck(0,4,8,turnSymbol)) return true;
+    if (winCheck(2,4,6,turnSymbol)) return true;
+    else return false;
+  }
+
+  function winCheck(index0, index1, index2, turnSymbol) {
+    if (array[index0] === turnSymbol & array[index1] === turnSymbol & array[index2] === turnSymbol) return true;
+    else return false;
   }
 
   return {get, set, reset, gameOver};
@@ -72,7 +51,7 @@ const gameController = (() => {
     turnSymbol = player1Turn ? "X" : "O";
     gameBoard.set(element.value, turnSymbol);
     displayController.displayTurn(element);
-    if(gameBoard.gameOver(turnSymbol)) console.log("hehehe");
+    if(gameBoard.gameOver(turnSymbol)) displayController.gameOver(player1Turn);
     player1Turn = !player1Turn;
   }));
 
@@ -80,6 +59,9 @@ const gameController = (() => {
   const startMenuState = () => document.getElementById("start-button").addEventListener("click", () => {
     let player1 = Player(document.getElementById("player1-text").value, 1);
     displayController.displayPlayerName(player1.getName(), player1.getNum());
+
+    console.log(document.getElementById("player2").checked);
+    console.log(document.getElementById("cpu").checked);
 
     let player2 = Player(document.getElementById("player2-text").value, 2);
     displayController.displayPlayerName(player2.getName(), player2.getNum());
@@ -114,14 +96,27 @@ const displayController = (() => {
       document.getElementById(element.id).innerText = "";
       document.getElementById(element.id).disabled = false;
     });
+    document.getElementById("winner").textContent = "";
   };
 
   const displayPlayerName = (playerName, playerNum) => {
     if (playerNum === 1) document.getElementById("player1-name").textContent = playerName;
     if (playerNum === 2) document.getElementById("player2-name").textContent = playerName;
-  }
+  };
 
-  return {displayTurn, hideStartMenu, showGameboard, resetGameBoard, displayPlayerName};
+  const gameOver = (player1Turn) => {
+    let playerName = "";
+
+    Array.from(document.getElementsByClassName("grid-item")).forEach(element => {
+      document.getElementById(element.id).disabled = true;
+    });
+    
+    if (player1Turn) playerName = document.getElementById("player1-name").textContent;
+    else playerName = document.getElementById("player2-name").textContent;
+    document.getElementById("winner").textContent = playerName + " Wins!";
+  };
+
+  return {displayTurn, hideStartMenu, showGameboard, resetGameBoard, displayPlayerName, gameOver};
 })();
 
 
