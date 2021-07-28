@@ -60,9 +60,6 @@ const gameController = (() => {
     let player1 = Player(document.getElementById("player1-text").value, 1);
     displayController.displayPlayerName(player1.getName(), player1.getNum());
 
-    console.log(document.getElementById("player2").checked);
-    console.log(document.getElementById("cpu").checked);
-
     let player2 = Player(document.getElementById("player2-text").value, 2);
     displayController.displayPlayerName(player2.getName(), player2.getNum());
 

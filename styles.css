@@ -15,6 +15,13 @@ body {
   align-items: center;
 }
 
+input[type=text] {
+  height: 2em;
+  font-size: 14px;
+  padding-left: 0.5em;
+  border-radius: 0.5em;
+}
+
 #startmenu-container {
   display: flex;
   background-color: cornsilk;
@@ -29,6 +36,10 @@ body {
   width: 5em;
   height: 2em;
   margin: 1em 3em;
+}
+
+#player2-startmenu {
+  text-align: right;
 }
 
 #CPU-radio {
