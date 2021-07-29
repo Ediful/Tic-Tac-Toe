@@ -35,15 +35,8 @@ const gameBoard = (() => {
 
 //  Module for game controller
 const gameController = (() => {
-  // Player turns
-  let player1Turn = false;
-  let turnSymbol;
-
-  // Restart Button
-  document.getElementById("reset-button").addEventListener("click", () => {
-    gameBoard.reset();
-    displayController.resetGameBoard();
-  });
+  let player1Turn; // boolean to hold turn status
+  let turnSymbol; // string to hold "X" or "O"
 
   // Grid cell buttons
   const array = Array.from(document.getElementsByClassName("grid-item"));
@@ -54,16 +47,25 @@ const gameController = (() => {
     if(gameBoard.gameOver(turnSymbol)) displayController.gameOver(player1Turn);
     player1Turn = !player1Turn;
   }));
+  
+  // Restart Button
+  document.getElementById("reset-button").addEventListener("click", () => {
+    gameBoard.reset();
+    displayController.resetGameBoard();
+  });
 
   // Instructions for each state
   const startMenuState = () => document.getElementById("start-button").addEventListener("click", () => {
-    let player1 = Player(document.getElementById("player1-text").value, 1);
-    displayController.displayPlayerName(player1.getName(), player1.getNum());
+    let player1Text = document.getElementById("player1-text").value;
+    let player2Text = document.getElementById("player2-text").value;
 
-    let player2 = Player(document.getElementById("player2-text").value, 2);
-    displayController.displayPlayerName(player2.getName(), player2.getNum());
+    if (!player1Text) player1Text = "Player 1";
+    if (!player2Text) player2Text = "Player 2";
 
-    displayController.hideStartMenu();
+    let player1 = new Player(player1Text);
+    let player2 = new Player(player2Text);
+
+    displayController.displayPlayerNames(player1.name, player2.name);
     displayController.showGameboard();
     player1Turn = true;
   });
@@ -79,12 +81,9 @@ const displayController = (() => {
     document.getElementById(element.id).innerText = array[element.value];
     document.getElementById(element.id).disabled = true;
   };
-
-  const hideStartMenu = () => {
-    document.getElementById("startmenu-container").style.display = "none";
-  };
-
+  
   const showGameboard = () => {
+    document.getElementById("startmenu-container").style.display = "none";
     document.getElementById("gameboard-container").style.display = "block";
   };
 
@@ -96,9 +95,9 @@ const displayController = (() => {
     document.getElementById("winner").textContent = "";
   };
 
-  const displayPlayerName = (playerName, playerNum) => {
-    if (playerNum === 1) document.getElementById("player1-name").textContent = playerName;
-    if (playerNum === 2) document.getElementById("player2-name").textContent = playerName;
+  const displayPlayerNames = (player1Name, player2Name) => {
+    document.getElementById("player1-name").textContent = player1Name;
+    document.getElementById("player2-name").textContent = player2Name;
   };
 
   const gameOver = (player1Turn) => {
@@ -113,15 +112,21 @@ const displayController = (() => {
     document.getElementById("winner").textContent = playerName + " Wins!";
   };
 
-  return {displayTurn, hideStartMenu, showGameboard, resetGameBoard, displayPlayerName, gameOver};
+  return {displayTurn, showGameboard, resetGameBoard, displayPlayerNames, gameOver};
 })();
 
 
-//  Factory for players
-const Player = (name, playerNum) => {
-  if (!name) name = "Player " + playerNum;
-  
-  const getName = () => name;
-  const getNum = () => playerNum;
-  return {getName, getNum};
-};
+// Player Class
+class Player {
+  constructor(name) {
+    this.name = name;
+  }
+
+  get name() {
+    return this._name; 
+  }
+
+  set name(value) {
+    this._name = value;
+  }
+}
